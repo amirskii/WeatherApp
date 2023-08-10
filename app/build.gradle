@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.weatherapp"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -59,6 +59,10 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+    // Koin
+    implementation "io.insert-koin:koin-core:3.3.3"
+    implementation "io.insert-koin:koin-android:3.3.3"
 
     // Location Services
     implementation 'com.google.android.gms:play-services-location:20.0.0'
