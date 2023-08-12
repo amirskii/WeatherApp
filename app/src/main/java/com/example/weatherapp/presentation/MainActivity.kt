@@ -6,14 +6,26 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.height
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import com.example.weatherapp.presentation.screens.main.MainUiState
 import com.example.weatherapp.presentation.screens.main.MainViewModelImpl
+import com.example.weatherapp.presentation.screens.main.WeatherCard
+import com.example.weatherapp.presentation.screens.main.WeatherForecast
+import com.example.weatherapp.presentation.theme.DarkBlue
+import com.example.weatherapp.presentation.theme.DeepBlue
 import com.example.weatherapp.presentation.theme.WeatherAppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,39 +39,63 @@ class MainActivity : ComponentActivity() {
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
-            viewModel.fetchWeather()
+            viewModel.permissionsAreGranted()
         }
-        permissionLauncher.launch(arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-        ))
+        permissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+            )
+        )
 
         setContent {
             WeatherAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
+                MainScreen(viewModel.uiState)
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    WeatherAppTheme {
-        Greeting("Android")
+fun MainScreen(
+    state: MainUiState,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(DarkBlue)
+        ) {
+            WeatherCard(
+                state = state,
+                backgroundColor = DeepBlue
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            WeatherForecast(state = state)
+        }
+        if (state.loading) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
+        state.error?.let {
+            Text(
+                text = it,
+                color = Color.White,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
     }
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    WeatherAppTheme {
+//        MainScreen()
+//    }
+//}

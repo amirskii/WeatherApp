@@ -68,6 +68,8 @@ class AndroidLocationTracker(
 
                 client.requestLocationUpdates(locationRequest, callBack, Looper.getMainLooper())
                 awaitClose { client.removeLocationUpdates(callBack) }
+            } else {
+                close(Exception("Could not access location or GPS"))
             }
         }
 
