@@ -23,11 +23,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapp.R
-import com.example.weatherapp.presentation.models.CurrentWeatherUi
+import com.example.weatherapp.presentation.models.WeatherAtTimeUi
 
 @Composable
 fun WeatherCard(
-    currentWeatherUi: CurrentWeatherUi,
+    weatherAtTimeUi: WeatherAtTimeUi,
     backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
@@ -43,25 +43,25 @@ fun WeatherCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Today ${currentWeatherUi.time}",
+                text = "Today ${weatherAtTimeUi.time}",
                 modifier = Modifier.align(Alignment.End),
                 color = Color.White
             )
             Spacer(modifier = Modifier.height(16.dp))
             Image(
-                painter = painterResource(id = currentWeatherUi.iconRes),
+                painter = painterResource(id = weatherAtTimeUi.iconRes),
                 contentDescription = null,
                 modifier = Modifier.width(200.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = currentWeatherUi.temperature,
+                text = weatherAtTimeUi.temperature,
                 fontSize = 50.sp,
                 color = Color.White
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = currentWeatherUi.weatherDesc,
+                text = weatherAtTimeUi.weatherDesc,
                 fontSize = 20.sp,
                 color = Color.White
             )
@@ -71,21 +71,21 @@ fun WeatherCard(
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 WeatherDataDisplay(
-                    value = currentWeatherUi.pressure,
+                    value = weatherAtTimeUi.pressure,
                     unit = "hpa",
                     icon = ImageVector.vectorResource(id = R.drawable.ic_pressure),
                     iconTint = Color.White,
                     textStyle = TextStyle(color = Color.White)
                 )
                 WeatherDataDisplay(
-                    value = currentWeatherUi.humidity,
+                    value = weatherAtTimeUi.humidity,
                     unit = "%",
                     icon = ImageVector.vectorResource(id = R.drawable.ic_drop),
                     iconTint = Color.White,
                     textStyle = TextStyle(color = Color.White)
                 )
                 WeatherDataDisplay(
-                    value = currentWeatherUi.wind,
+                    value = weatherAtTimeUi.wind,
                     unit = "km/h",
                     icon = ImageVector.vectorResource(id = R.drawable.ic_wind),
                     iconTint = Color.White,

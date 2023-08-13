@@ -2,7 +2,7 @@ package com.example.weatherapp.presentation.models
 
 import androidx.annotation.DrawableRes
 
-data class CurrentWeatherUi(
+data class WeatherAtTimeUi(
     val time: String,
     @DrawableRes val iconRes: Int,
     val temperature: String,

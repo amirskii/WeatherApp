@@ -1,6 +1,7 @@
 package com.example.weatherapp.presentation.di
 
-import com.example.weatherapp.domain.mappers.CurrentWeatherUiMapper
+import com.example.weatherapp.domain.mappers.TodayWeatherUiMapper
+import com.example.weatherapp.domain.mappers.WeatherAtTimeUiMapper
 import com.example.weatherapp.presentation.screens.main.MainViewModelImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -13,12 +14,17 @@ object MainInjectionModule {
             MainViewModelImpl(
                 weatherRepository = get(),
                 locationTracker = get(),
-                currentWeatherUiMapper = get()
+                weatherAtTimeUiMapper = get(),
+                todayWeatherUiMapper = get()
             )
         }
 
         factory {
-            CurrentWeatherUiMapper()
+            WeatherAtTimeUiMapper()
+        }
+
+        factory {
+            TodayWeatherUiMapper(weatherAtTimeUiMapper = get())
         }
     }
 }

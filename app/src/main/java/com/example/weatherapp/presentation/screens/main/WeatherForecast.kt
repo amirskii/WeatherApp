@@ -12,34 +12,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.weatherapp.R
+import com.example.weatherapp.presentation.models.WeatherAtTimeUi
 
 @Composable
 fun WeatherForecast(
-    state: MainUiState,
+    dayWeatherUi: List<WeatherAtTimeUi>,
     modifier: Modifier = Modifier
 ) {
-    state.weatherInfo?.weatherDataPerDay?.get(0)
-        ?.let { data ->
-            Column(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = "Today", fontSize = 20.sp, color = Color.White)
-                Spacer(modifier = Modifier.height(16.dp))
-                LazyRow(content = {
-                    items(data) { weatherData ->
-                        WeatherHourlyDisplay(
-                            weatherAtTime = weatherData,
-                            modifier = Modifier
-                                .height(100.dp)
-                                .padding(horizontal = 16.dp)
-                        )
-                    }
-                })
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = stringResource(R.string.today), fontSize = 20.sp, color = Color.White)
+        Spacer(modifier = Modifier.height(16.dp))
+        LazyRow(content = {
+            items(dayWeatherUi) {
+                WeatherHourlyDisplay(
+                    weatherAtTimeUi = it,
+                    modifier = Modifier
+                        .height(100.dp)
+                        .padding(horizontal = 16.dp)
+                )
             }
-        }
+        })
+    }
 }

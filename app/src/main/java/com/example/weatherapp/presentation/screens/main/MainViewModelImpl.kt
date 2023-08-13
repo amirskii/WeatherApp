@@ -6,7 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.domain.location.LocationTracker
-import com.example.weatherapp.domain.mappers.CurrentWeatherUiMapper
+import com.example.weatherapp.domain.mappers.TodayWeatherUiMapper
+import com.example.weatherapp.domain.mappers.WeatherAtTimeUiMapper
 import com.example.weatherapp.domain.repository.WeatherRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
@@ -20,7 +21,8 @@ import kotlinx.coroutines.launch
 class MainViewModelImpl(
     private val weatherRepository: WeatherRepository,
     private val locationTracker: LocationTracker,
-    private val currentWeatherUiMapper: CurrentWeatherUiMapper
+    private val weatherAtTimeUiMapper: WeatherAtTimeUiMapper,
+    private val todayWeatherUiMapper: TodayWeatherUiMapper
 ) : MainViewModel, ViewModel() {
 
     override var uiState by mutableStateOf(MainUiState())
@@ -63,7 +65,8 @@ class MainViewModelImpl(
                 .onEach {
                     uiState = uiState.copy(
                         weatherInfo = it,
-                        currentWeatherUi = currentWeatherUiMapper.map(it.currentWeather),
+                        currentWeather = it.currentWeather.let(weatherAtTimeUiMapper::map),
+                        dayWeather = todayWeatherUiMapper.map(it),
                         loading = false,
                         error = null
                     )

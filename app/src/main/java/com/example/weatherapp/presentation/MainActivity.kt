@@ -69,14 +69,16 @@ fun MainScreen(
                 .fillMaxSize()
                 .background(DarkBlue)
         ) {
-            state.currentWeatherUi?.let {
+            state.currentWeather?.let {
                 WeatherCard(
-                    currentWeatherUi = it,
+                    weatherAtTimeUi = it,
                     backgroundColor = DeepBlue
                 )
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            WeatherForecast(state = state)
+            state.dayWeather?.let {
+                Spacer(modifier = Modifier.height(16.dp))
+                WeatherForecast(dayWeatherUi = it)
+            }
         }
         if (state.loading) {
             CircularProgressIndicator(
