@@ -2,8 +2,8 @@ package com.example.weatherapp.data.di
 
 import com.example.weatherapp.data.remote.WeatherApi
 import com.example.weatherapp.data.repository.WeatherRepositoryImpl
-import com.example.weatherapp.domain.mappers.WeatherInfoMapper
-import com.example.weatherapp.domain.mappers.WeatherMapMapper
+import com.example.weatherapp.domain.mappers.CurrentAndForecastWeatherMapper
+import com.example.weatherapp.domain.mappers.WeatherDaysMapper
 import com.example.weatherapp.domain.repository.WeatherRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,7 +18,7 @@ object NetworkInjectionModule {
         factory<WeatherRepository> {
             WeatherRepositoryImpl(
                 api = get(),
-                weatherInfoMapper = get()
+                currentAndForecastWeatherMapper = get()
             )
         }
 
@@ -48,11 +48,11 @@ object NetworkInjectionModule {
         single<WeatherApi> { provideWeatherApiService(get()) }
 
         factory {
-            WeatherMapMapper()
+            WeatherDaysMapper()
         }
 
         factory {
-            WeatherInfoMapper(weatherMapMapper = get())
+            CurrentAndForecastWeatherMapper(weatherDaysMapper = get())
         }
     }
 

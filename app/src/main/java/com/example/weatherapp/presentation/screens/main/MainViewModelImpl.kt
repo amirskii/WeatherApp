@@ -64,7 +64,7 @@ class MainViewModelImpl(
                 }
                 .onEach {
                     uiState = uiState.copy(
-                        weatherInfo = it,
+                        currentAndForecastWeather = it,
                         currentWeather = it.currentWeather.let(weatherAtTimeUiMapper::map),
                         todayWeather = todayWeatherUiMapper.map(it),
                         loading = false,

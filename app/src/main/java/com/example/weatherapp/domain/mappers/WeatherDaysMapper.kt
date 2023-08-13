@@ -7,7 +7,7 @@ import com.example.weatherapp.domain.models.WeatherType
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class WeatherMapMapper {
+class WeatherDaysMapper {
     fun map(input: WeatherDataDto): List<DayWeather> {
         val days = mutableListOf<DayWeather>()
         val currentDay = mutableListOf<WeatherAtTime>()

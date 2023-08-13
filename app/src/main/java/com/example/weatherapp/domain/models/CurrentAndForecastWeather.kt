@@ -1,6 +1,6 @@
 package com.example.weatherapp.domain.models
 
-data class WeatherInfo(
+data class CurrentAndForecastWeather(
     val days: List<DayWeather>,
     val currentWeather: WeatherAtTime
 )
