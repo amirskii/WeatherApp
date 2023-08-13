@@ -24,8 +24,8 @@ import com.example.weatherapp.presentation.screens.main.MainUiState
 import com.example.weatherapp.presentation.screens.main.MainViewModelImpl
 import com.example.weatherapp.presentation.screens.main.WeatherCard
 import com.example.weatherapp.presentation.screens.main.WeatherForecast
-import com.example.weatherapp.presentation.theme.DarkBlue
-import com.example.weatherapp.presentation.theme.DeepBlue
+import com.example.weatherapp.presentation.theme.CarolinaBlue
+import com.example.weatherapp.presentation.theme.CuriousBlue
 import com.example.weatherapp.presentation.theme.WeatherAppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -67,22 +67,23 @@ fun MainScreen(
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .background(DarkBlue)
+                .background(CarolinaBlue)
         ) {
             state.currentWeather?.let {
-                WeatherCard(
-                    weatherAtTimeUi = it,
-                    backgroundColor = DeepBlue
-                )
+                WeatherCard(weatherAtTimeUi = it)
             }
             state.dayWeather?.let {
                 Spacer(modifier = Modifier.height(16.dp))
-                WeatherForecast(dayWeatherUi = it)
+                WeatherForecast(
+                    dayWeatherUi = it,
+                    backgroundColor = CuriousBlue
+                )
             }
         }
         if (state.loading) {
             CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
+                color = Color.White
             )
         }
         state.error?.let {

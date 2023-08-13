@@ -7,7 +7,7 @@ data class WeatherAtTimeUi(
     @DrawableRes val iconRes: Int,
     val temperature: String,
     val weatherDesc: String,
-    val pressure: Int,
-    val humidity: Int,
-    val wind: Int
+    val pressure: String,
+    val humidity: String,
+    val wind: String
 )

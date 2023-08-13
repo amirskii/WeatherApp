@@ -21,12 +21,13 @@ import com.example.weatherapp.presentation.models.WeatherAtTimeUi
 @Composable
 fun WeatherForecast(
     dayWeatherUi: List<WeatherAtTimeUi>,
+    backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = stringResource(R.string.today), fontSize = 20.sp, color = Color.White)
@@ -35,9 +36,10 @@ fun WeatherForecast(
             items(dayWeatherUi) {
                 WeatherHourlyDisplay(
                     weatherAtTimeUi = it,
+                    backgroundColor = backgroundColor,
                     modifier = Modifier
-                        .height(100.dp)
-                        .padding(horizontal = 16.dp)
+                        .height(120.dp)
+                        .padding(horizontal = 8.dp)
                 )
             }
         })
