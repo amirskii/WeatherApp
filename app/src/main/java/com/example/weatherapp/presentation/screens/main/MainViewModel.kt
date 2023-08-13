@@ -11,7 +11,7 @@ interface MainViewModel {
 data class MainUiState(
     val weatherInfo: WeatherInfo? = null,
     val currentWeather: WeatherAtTimeUi? = null,
-    val dayWeather: List<WeatherAtTimeUi>? = null,
+    val todayWeather: List<WeatherAtTimeUi>? = null,
     val loading: Boolean = false,
     val error: String? = null
 )

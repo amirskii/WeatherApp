@@ -27,7 +27,7 @@ import com.example.weatherapp.presentation.models.WeatherAtTimeUi
 import com.example.weatherapp.presentation.theme.LightBlue
 
 @Composable
-fun WeatherCard(
+fun CurrentWeatherSection(
     weatherAtTimeUi: WeatherAtTimeUi,
     modifier: Modifier = Modifier
 ) {

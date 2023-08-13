@@ -19,7 +19,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.presentation.models.WeatherAtTimeUi
 
 @Composable
-fun WeatherForecast(
+fun TodayWeatherForecast(
     dayWeatherUi: List<WeatherAtTimeUi>,
     backgroundColor: Color,
     modifier: Modifier = Modifier

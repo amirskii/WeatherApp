@@ -7,9 +7,9 @@ import java.time.LocalDateTime
 class TodayWeatherUiMapper(
     private val weatherAtTimeUiMapper: WeatherAtTimeUiMapper
 ) {
-    fun map(weatherInfo: WeatherInfo): List<WeatherAtTimeUi>? {
-        return weatherInfo.weatherDataPerDay[0]
-            ?.filter { it.time >= LocalDateTime.now() }
-            ?.let(weatherAtTimeUiMapper::mapList)
+    fun map(weatherInfo: WeatherInfo): List<WeatherAtTimeUi> {
+        return weatherInfo.days.first().hourly
+            .filter { it.time >= LocalDateTime.now() }
+            .let(weatherAtTimeUiMapper::mapList)
     }
 }

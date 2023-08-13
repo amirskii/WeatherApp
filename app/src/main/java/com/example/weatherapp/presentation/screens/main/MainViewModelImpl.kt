@@ -66,7 +66,7 @@ class MainViewModelImpl(
                     uiState = uiState.copy(
                         weatherInfo = it,
                         currentWeather = it.currentWeather.let(weatherAtTimeUiMapper::map),
-                        dayWeather = todayWeatherUiMapper.map(it),
+                        todayWeather = todayWeatherUiMapper.map(it),
                         loading = false,
                         error = null
                     )

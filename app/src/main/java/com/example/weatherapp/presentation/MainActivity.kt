@@ -22,8 +22,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.presentation.screens.main.MainUiState
 import com.example.weatherapp.presentation.screens.main.MainViewModelImpl
-import com.example.weatherapp.presentation.screens.main.WeatherCard
-import com.example.weatherapp.presentation.screens.main.WeatherForecast
+import com.example.weatherapp.presentation.screens.main.CurrentWeatherSection
+import com.example.weatherapp.presentation.screens.main.TodayWeatherForecast
 import com.example.weatherapp.presentation.theme.CarolinaBlue
 import com.example.weatherapp.presentation.theme.CuriousBlue
 import com.example.weatherapp.presentation.theme.WeatherAppTheme
@@ -70,11 +70,11 @@ fun MainScreen(
                 .background(CarolinaBlue)
         ) {
             state.currentWeather?.let {
-                WeatherCard(weatherAtTimeUi = it)
+                CurrentWeatherSection(weatherAtTimeUi = it)
             }
-            state.dayWeather?.let {
+            state.todayWeather?.let {
                 Spacer(modifier = Modifier.height(16.dp))
-                WeatherForecast(
+                TodayWeatherForecast(
                     dayWeatherUi = it,
                     backgroundColor = CuriousBlue
                 )

@@ -8,13 +8,13 @@ class WeatherInfoMapper(
     private val weatherMapMapper: WeatherMapMapper
 ) {
     fun map(input: WeatherDto): WeatherInfo {
-        val weatherDataMap = weatherMapMapper.map(input.weatherData)
-        val currentWeather = weatherDataMap[0]?.find {
+        val weatherDays = weatherMapMapper.map(input.weatherData)
+        val currentWeather = weatherDays.first().hourly.find {
             it.time.hour == LocalDateTime.now().hour
         }!!
 
         return WeatherInfo(
-            weatherDataPerDay = weatherDataMap,
+            days = weatherDays,
             currentWeather = currentWeather
         )
     }

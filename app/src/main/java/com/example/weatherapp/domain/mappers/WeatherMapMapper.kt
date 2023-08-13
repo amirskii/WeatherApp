@@ -1,28 +1,26 @@
 package com.example.weatherapp.domain.mappers
 
 import com.example.weatherapp.data.remote.WeatherDataDto
+import com.example.weatherapp.domain.models.DayWeather
 import com.example.weatherapp.domain.models.WeatherAtTime
-import com.example.weatherapp.domain.models.WeatherMap
 import com.example.weatherapp.domain.models.WeatherType
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class WeatherMapMapper {
-    private data class IndexedWeatherData(
-        val index: Int,
-        val data: WeatherAtTime
-    )
+    fun map(input: WeatherDataDto): List<DayWeather> {
+        val days = mutableListOf<DayWeather>()
+        val currentDay = mutableListOf<WeatherAtTime>()
 
-    fun map(input: WeatherDataDto): WeatherMap {
-        val output = input.time.mapIndexed { index, time ->
-            val temperature = input.temperatures[index]
-            val weatherCode = input.weatherCodes[index]
-            val wind = input.windSpeeds[index]
-            val pressure = input.pressures[index]
-            val humidity = input.humidities[index]
-            IndexedWeatherData(
-                index = index,
-                data = WeatherAtTime(
+        input.time.forEachIndexed { i, time ->
+            val temperature = input.temperatures[i]
+            val weatherCode = input.weatherCodes[i]
+            val wind = input.windSpeeds[i]
+            val pressure = input.pressures[i]
+            val humidity = input.humidities[i]
+
+            currentDay.add(
+                WeatherAtTime(
                     time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME),
                     temperature = temperature,
                     pressure = pressure,
@@ -31,11 +29,16 @@ class WeatherMapMapper {
                     weatherType = WeatherType.fromWMO(weatherCode)
                 )
             )
-        }.groupBy {
-            it.index / 24
-        }.mapValues {
-            it.value.map { it.data }
+            if (i > 0 && i.mod(23) == 0) {
+                days.add(
+                    DayWeather(mutableListOf<WeatherAtTime>().apply {
+                        addAll(currentDay)
+                    })
+                )
+                currentDay.clear()
+            }
         }
-        return output
+
+        return days
     }
 }
