@@ -6,21 +6,21 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.domain.location.LocationTracker
+import com.example.weatherapp.domain.mappers.CurrentWeatherUiMapper
 import com.example.weatherapp.domain.repository.WeatherRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 class MainViewModelImpl(
     private val weatherRepository: WeatherRepository,
-    private val locationTracker: LocationTracker
+    private val locationTracker: LocationTracker,
+    private val currentWeatherUiMapper: CurrentWeatherUiMapper
 ) : MainViewModel, ViewModel() {
 
     override var uiState by mutableStateOf(MainUiState())
@@ -36,22 +36,23 @@ class MainViewModelImpl(
 
     private fun collectWeather() {
         viewModelScope.launch {
-
             uiState = uiState.copy(loading = true, error = null)
 
             hasPermission.flatMapLatest { hasPermission ->
-                locationTracker.getCurrentLocation()
-                    .distinctUntilChanged()
-                    .debounce(TimeUnit.SECONDS.toMillis(2))
-                    .flatMapLatest { location ->
-                        flowOf(
-                            weatherRepository.getWeatherData(
-                                location.latitude,
-                                location.longitude
+                if (hasPermission) {
+                    locationTracker.getCurrentLocation()
+                        .distinctUntilChanged()
+                        .flatMapLatest { location ->
+                            flowOf(
+                                weatherRepository.getWeatherData(
+                                    location.latitude,
+                                    location.longitude
+                                )
                             )
-                        )
-                    }
-                    .takeIf { hasPermission } ?: flowOf()
+                        }
+                } else {
+                    flowOf()
+                }
             }
                 .catch {
                     uiState = uiState.copy(
@@ -62,6 +63,7 @@ class MainViewModelImpl(
                 .onEach {
                     uiState = uiState.copy(
                         weatherInfo = it,
+                        currentWeatherUi = currentWeatherUiMapper.map(it.currentWeather),
                         loading = false,
                         error = null
                     )

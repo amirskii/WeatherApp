@@ -69,10 +69,12 @@ fun MainScreen(
                 .fillMaxSize()
                 .background(DarkBlue)
         ) {
-            WeatherCard(
-                state = state,
-                backgroundColor = DeepBlue
-            )
+            state.currentWeatherUi?.let {
+                WeatherCard(
+                    currentWeatherUi = it,
+                    backgroundColor = DeepBlue
+                )
+            }
             Spacer(modifier = Modifier.height(16.dp))
             WeatherForecast(state = state)
         }

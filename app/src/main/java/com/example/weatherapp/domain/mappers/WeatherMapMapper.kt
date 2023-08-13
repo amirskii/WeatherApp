@@ -1,7 +1,7 @@
 package com.example.weatherapp.domain.mappers
 
 import com.example.weatherapp.data.remote.WeatherDataDto
-import com.example.weatherapp.domain.models.WeatherData
+import com.example.weatherapp.domain.models.WeatherAtTime
 import com.example.weatherapp.domain.models.WeatherMap
 import com.example.weatherapp.domain.models.WeatherType
 import java.time.LocalDateTime
@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter
 class WeatherMapMapper {
     private data class IndexedWeatherData(
         val index: Int,
-        val data: WeatherData
+        val data: WeatherAtTime
     )
 
     fun map(input: WeatherDataDto): WeatherMap {
@@ -22,7 +22,7 @@ class WeatherMapMapper {
             val humidity = input.humidities[index]
             IndexedWeatherData(
                 index = index,
-                data = WeatherData(
+                data = WeatherAtTime(
                     time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME),
                     temperature = temperature,
                     pressure = pressure,

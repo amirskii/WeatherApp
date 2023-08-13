@@ -33,7 +33,7 @@ fun WeatherForecast(
                 LazyRow(content = {
                     items(data) { weatherData ->
                         WeatherHourlyDisplay(
-                            weatherData = weatherData,
+                            weatherAtTime = weatherData,
                             modifier = Modifier
                                 .height(100.dp)
                                 .padding(horizontal = 16.dp)

@@ -1,8 +1,8 @@
 package com.example.weatherapp.domain.models
 
-typealias WeatherMap = Map<Int, List<WeatherData>>
+typealias WeatherMap = Map<Int, List<WeatherAtTime>>
 
 data class WeatherInfo(
     val weatherDataPerDay: WeatherMap,
-    val currentWeather: WeatherData
+    val currentWeather: WeatherAtTime
 )
