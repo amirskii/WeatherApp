@@ -1,15 +1,9 @@
-WeatherMapMapper
-WeatherInfoMapper
-Resource with Either
-
-
 # Weather App
 API used:
 1. Open Meteo(https://open-meteo.com/)
-2. 
 
 Following technologies have been used:
-1. Architecture Components (Coroutine/Flow, ViewModel, Navigation)
+1. Architecture Components (Compose, Coroutine/Flow, ViewModel, Navigation)
 2. MVVM, Koin for dependency injection
 3. Kotlin written
 4. SOLID, Clean Architecture
@@ -26,13 +20,11 @@ Although challenge project is tiny I tried to separate business logic, presentat
 Layers covered:
 - ViewModels
 - Use cases
-- Gateway
+- Repository
 - Data transformation
 
-
 ## Screenshots
-[<img src="/screenshots/list.png" align="left" width="200" hspace="10" vspace="10">](/screenshots/list.png)
-[<img src="/screenshots/user_details.png" align="center" width="200" hspace="10" vspace="10">](/screenshots/user_details.png)
+[<img src="/screenshots/weather1.png" align="left" width="200" hspace="10" vspace="10">](/screenshots/weather1.png)
 
 ### Unit tests
 [<img src="/screenshots/tests.png" align="left" width="400" hspace="30" vspace="10">](/screenshots/tests.png)
