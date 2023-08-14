@@ -3,7 +3,7 @@ API used:
 1. Open Meteo(https://open-meteo.com/)
 
 Following technologies have been used:
-1. Architecture Components (Compose, Coroutine/Flow, ViewModel, Navigation)
+1. Architecture Components (Compose, Coroutine/Flow, ViewModel)
 2. MVVM, Koin for dependency injection
 3. Kotlin written
 4. SOLID, Clean Architecture
@@ -25,6 +25,7 @@ Layers covered:
 
 ## Screenshots
 [<img src="/screenshots/weather1.png" align="left" width="200" hspace="10" vspace="10">](/screenshots/weather1.png)
+
 
 ### Unit tests
 [<img src="/screenshots/tests.png" align="left" width="400" hspace="30" vspace="10">](/screenshots/tests.png)
