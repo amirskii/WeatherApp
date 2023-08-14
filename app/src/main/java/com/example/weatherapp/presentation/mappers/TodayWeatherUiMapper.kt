@@ -1,4 +1,4 @@
-package com.example.weatherapp.domain.mappers
+package com.example.weatherapp.presentation.mappers
 
 import com.example.weatherapp.domain.models.CurrentAndForecastWeather
 import com.example.weatherapp.presentation.models.WeatherAtTimeUi

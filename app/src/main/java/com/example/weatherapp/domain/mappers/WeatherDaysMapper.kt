@@ -29,7 +29,7 @@ class WeatherDaysMapper {
                     weatherType = WeatherType.fromWMO(weatherCode)
                 )
             )
-            if (i > 0 && i.mod(23) == 0) {
+            if (i > 0 && (i+1).mod(24) == 0) {
                 days.add(
                     DayWeather(mutableListOf<WeatherAtTime>().apply {
                         addAll(currentDay)
@@ -38,6 +38,11 @@ class WeatherDaysMapper {
                 currentDay.clear()
             }
         }
+        days.add(
+            DayWeather(mutableListOf<WeatherAtTime>().apply {
+                addAll(currentDay)
+            })
+        )
 
         return days
     }

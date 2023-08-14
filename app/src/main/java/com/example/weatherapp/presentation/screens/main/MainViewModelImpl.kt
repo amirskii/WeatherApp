@@ -5,22 +5,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapp.domain.location.LocationTracker
-import com.example.weatherapp.domain.mappers.TodayWeatherUiMapper
-import com.example.weatherapp.domain.mappers.WeatherAtTimeUiMapper
-import com.example.weatherapp.domain.repository.WeatherRepository
+import com.example.weatherapp.domain.models.CurrentAndForecastWeather
+import com.example.weatherapp.domain.usecase.FetchWeatherUseCase
+import com.example.weatherapp.presentation.mappers.TodayWeatherUiMapper
+import com.example.weatherapp.presentation.mappers.WeatherAtTimeUiMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class MainViewModelImpl(
-    private val weatherRepository: WeatherRepository,
-    private val locationTracker: LocationTracker,
+    private val fetchWeatherUseCase: FetchWeatherUseCase,
     private val weatherAtTimeUiMapper: WeatherAtTimeUiMapper,
     private val todayWeatherUiMapper: TodayWeatherUiMapper
 ) : MainViewModel, ViewModel() {
@@ -42,24 +40,15 @@ class MainViewModelImpl(
 
             hasPermission.flatMapLatest { hasPermission ->
                 if (hasPermission) {
-                    locationTracker.getCurrentLocation()
-                        .distinctUntilChanged()
-                        .flatMapLatest { location ->
-                            flowOf(
-                                weatherRepository.getWeatherData(
-                                    location.latitude,
-                                    location.longitude
-                                )
-                            )
-                        }
+                    fetchWeatherUseCase.execute()
                 } else {
-                    flowOf()
+                    emptyFlow<CurrentAndForecastWeather>()
                 }
             }
                 .catch {
                     uiState = uiState.copy(
                         loading = false,
-                        error = it.message
+                        error = it.message ?: "unknown error"
                     )
                 }
                 .onEach {

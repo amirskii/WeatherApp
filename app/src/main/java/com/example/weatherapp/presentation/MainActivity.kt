@@ -20,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.weatherapp.presentation.screens.main.CurrentWeatherSection
 import com.example.weatherapp.presentation.screens.main.MainUiState
 import com.example.weatherapp.presentation.screens.main.MainViewModelImpl
-import com.example.weatherapp.presentation.screens.main.CurrentWeatherSection
-import com.example.weatherapp.presentation.screens.main.TodayWeatherForecast
+import com.example.weatherapp.presentation.screens.main.TodayWeatherRow
 import com.example.weatherapp.presentation.theme.CarolinaBlue
 import com.example.weatherapp.presentation.theme.CuriousBlue
 import com.example.weatherapp.presentation.theme.WeatherAppTheme
@@ -74,7 +74,7 @@ fun MainScreen(
             }
             state.todayWeather?.let {
                 Spacer(modifier = Modifier.height(16.dp))
-                TodayWeatherForecast(
+                TodayWeatherRow(
                     dayWeatherUi = it,
                     backgroundColor = CuriousBlue
                 )
