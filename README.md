@@ -24,7 +24,7 @@ Layers covered:
 - Data transformation
 
 ## Screenshots
-[<img src="/screenshots/weather1.png" align="left" width="200" hspace="10" vspace="10">](/screenshots/weather1.png)
+[<img src="/screenshots/weather1.png" align="left" width="200" hspace="10" vspace="10">](/screenshots/weather1.png)  
 
 ### Unit tests
 [<img src="/screenshots/tests.png" align="left" width="400" hspace="30" vspace="10">](/screenshots/tests.png)
